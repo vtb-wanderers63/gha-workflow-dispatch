@@ -1,13 +1,33 @@
-name: 'Workflow Dispatch'
-description: ''
+name: 'Workflow Dispatch Trigger'
+description: 'Triggers a workflow_dispatch event on another workflow and returns the run ID'
+author: 'vtb-wanderers63'
+
 inputs:
-  access_token: # id of input
-    description: ''
+  owner:
+    description: 'Owner of the repository where the workflow is located (defaults to current repo owner)'
+    required: false
+  repo:
+    description: 'Repository name where the workflow is located (defaults to current repo)'
+    required: false
+  workflow_id:
+    description: 'The ID or file name of the workflow to trigger'
     required: true
-    default: ''
+  ref:
+    description: 'The git reference to run the workflow on (branch, tag, or SHA)'
+    required: false
+    default: ${{ github.ref }}
+  workflow_run_name:
+    description: 'The name of the workflow run for identification (optional)'
+    required: false
+
 outputs:
-  output: # id of output
-    description: ''
+  run_id:
+    description: 'The ID of the triggered workflow run'
+
 runs:
   using: 'node20'
-  main: 'index.js'
+  main: 'dist/index.js'
+
+branding:
+  icon: 'play'
+  color: 'blue'
