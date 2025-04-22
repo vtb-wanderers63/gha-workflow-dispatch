@@ -1,0 +1,13 @@
+name: 'Workflow Dispatch'
+description: ''
+inputs:
+  access_token: # id of input
+    description: ''
+    required: true
+    default: ''
+outputs:
+  output: # id of output
+    description: ''
+runs:
+  using: 'node20'
+  main: 'index.js'

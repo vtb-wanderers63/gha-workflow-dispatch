@@ -1,0 +1,25 @@
+{
+  "name": "workflow-dispatch-gha",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vtb-wanderers63/gha-workflow-dispatch.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vtb-wanderers63/gha-workflow-dispatch/issues"
+  },
+  "homepage": "https://github.com/vtb-wanderers63/gha-workflow-dispatch#readme",
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.0",
+    "octokit": "^4.1.3"
+  }
+}
