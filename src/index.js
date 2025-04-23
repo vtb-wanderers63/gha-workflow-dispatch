@@ -28,6 +28,9 @@ async function run() {
       repo,
       workflow_id,
       ref,
+      inputs: {
+        run_name: workflow_run_name,
+      },
     });
 
     if (response.status !== 204) {
