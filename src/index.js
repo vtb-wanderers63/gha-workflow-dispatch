@@ -36,7 +36,7 @@ async function run() {
     core.info(`Workflow dispatched successfully. Status: ${response.status}`);
 
     // Sleep to give GitHub some time to register the workflow run
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    await new Promise((resolve) => setTimeout(resolve, 30000));
 
     // Get the latest workflow runs for that workflow
     const runs_response = await octokit.rest.actions.listWorkflowRuns({
