@@ -57,6 +57,12 @@ runs:
       run: node ${{ github.action_path }}/dist/index.js
       env:
         GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+      with:
+        owner: ${{ inputs.owner }}
+        repo: ${{ inputs.repo }}
+        workflow_id: ${{ inputs.workflow_id }}
+        ref: ${{ inputs.ref }}
+        workflow_run_name: ${{ inputs.workflow_run_name }}
 
 branding:
   icon: 'play'
