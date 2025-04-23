@@ -19,14 +19,19 @@ inputs:
   workflow_run_name:
     description: 'The name of the workflow run for identification (optional)'
     required: false
-
+  app_id:
+    description: 'The github app appId'
+    required: true
+  private_key:
+    description: 'The github app private key'
+    required: true
 outputs:
   run_id:
     description: 'The ID of the triggered workflow run'
     value: '${{ steps.workflow-dispatch.outputs.run_id }}'
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Generate GitHub App Token
       uses: actions/create-github-app-token@v1
@@ -34,29 +39,24 @@ runs:
       with:
         app-id: ${{ inputs.app_id }}
         private-key: ${{ inputs.private_key }}
-    
+
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '20'
-        
+
     - name: Install dependencies
       shell: bash
       run: |
         cd ${{ github.action_path }}
         npm ci
-        
+
     - name: Run workflow dispatch
       shell: bash
       id: workflow-dispatch
       run: node ${{ github.action_path }}/dist/index.js
       env:
         GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-        INPUT_OWNER: ${{ inputs.owner }}
-        INPUT_REPO: ${{ inputs.repo }}
-        INPUT_WORKFLOW_ID: ${{ inputs.workflow_id }}
-        INPUT_REF: ${{ inputs.ref }}
-        INPUT_WORKFLOW_RUN_NAME: ${{ inputs.workflow_run_name }}
 
 branding:
   icon: 'play'
