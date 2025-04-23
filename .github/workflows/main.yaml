@@ -30,16 +30,17 @@ on:
 jobs:
   dispatch:
     runs-on: ubuntu-latest
+
     steps:
       - name: Trigger workflow_dispatch
         id: trigger
         uses: vtb-wanderers63/gha-workflow-dispatch@main
         with:
-          workflow_run_name: ${{ github.event.inputs.workflow_run_name }}
-          ref: ${{ github.event.inputs.ref }}
-          workflow_id: ${{ github.event.inputs.workflow_id }}
-          repo: ${{ github.event.inputs.repo }}
-          owner: ${{ github.event.inputs.owner }}
+          workflow_run_name: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.workflow_run_name || 'GHA Custom Trigger' }}
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.ref || 'master' }}
+          workflow_id: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.workflow_id || 155378968 }}
+          repo: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.repo || 'gha-python-external-scripts' }}
+          owner: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.owner || 'vtb-wanderers63' }}
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.PRIVATE_KEY }}
 
