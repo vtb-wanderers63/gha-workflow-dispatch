@@ -47,6 +47,10 @@ runs:
 
     - name: Install dependencies
       shell: bash
+      run: ls
+
+    - name: Install dependencies
+      shell: bash
       run: |
         cd ${{ github.action_path }}
         npm ci
