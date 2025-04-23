@@ -39,6 +39,9 @@ runs:
       with:
         app-id: ${{ inputs.app_id }}
         private-key: ${{ inputs.private_key }}
+        owner: ${{ inputs.owner }}
+        repositories: |
+          ${{ inputs.repo }}
 
     - name: Set up Node.js
       uses: actions/setup-node@v3
