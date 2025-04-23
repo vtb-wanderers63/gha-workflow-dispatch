@@ -12,11 +12,11 @@ async function run() {
     }
 
     // Get repository name and owner from the inputs or context
-    const owner = core.getInput('owner') || github.context.repo.owner;
-    const repo = core.getInput('repo') || github.context.repo.repo;
-    const workflow_id = core.getInput('workflow_id'); // Can be file name or ID
-    const ref = core.getInput('ref') || github.context.ref; // branch, tag, or SHA
-    const workflow_run_name = core.getInput('workflow_run_name'); // Optional, for better identification
+    const owner = process.env.OWNER || github.context.repo.owner;
+    const repo = process.env.REPO || github.context.repo.repo;
+    const workflow_id = process.env.WORKFLOW_ID; // Can be file name or ID
+    const ref = process.env.REF || github.context.ref; // branch, tag, or SHA
+    const workflow_run_name = process.env.WORKFLOW_RUN_NAME; // Optional, for better identification
 
     // Create Octokit instance
     const octokit = new Octokit({ auth: token });
