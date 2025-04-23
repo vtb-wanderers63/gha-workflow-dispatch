@@ -33,7 +33,7 @@ jobs:
     steps:
       - name: Trigger workflow_dispatch
         id: trigger
-        uses: vtb-wanderers63/gha-workflow-dispatch
+        uses: vtb-wanderers63/gha-workflow-dispatch@main
         with:
           workflow_run_name: ${{ github.event.inputs.workflow_run_name }}
           ref: ${{ github.event.inputs.ref }}
