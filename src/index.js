@@ -54,7 +54,12 @@ async function run() {
     }
 
     const runs = runs_response.data.workflow_runs;
-    const run = runs.find((run) => run.display_title === workflow_run_name);
+    
+    const run = runs.find(
+      (run) =>
+        run.head_branch === ref.replace('refs/heads/', '') &&
+        (!workflow_run_name || run.name === workflow_run_name)
+    );
 
     if (!run) {
       core.setFailed('No workflow run found after dispatch.');
