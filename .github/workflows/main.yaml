@@ -45,4 +45,5 @@ jobs:
           private_key: ${{ secrets.PRIVATE_KEY }}
 
       - name: Print result
-        run: echo "Workflow dispatch initiated successfully."
+        run: |
+          echo 'workflow run id: ${{ steps.trigger.outputs.run_id }}'
