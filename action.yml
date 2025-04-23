@@ -47,17 +47,14 @@ runs:
 
     - name: Install dependencies
       shell: bash
-      run: ls
-
-    - name: Install dependencies
-      shell: bash
       run: |
+        cd ${{ github.action_path }}
         npm ci
 
     - name: Run workflow dispatch
       shell: bash
       id: workflow-dispatch
-      run: node /dist/index.js
+      run: node ${{ github.action_path }}/dist/index.js
       env:
         GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
