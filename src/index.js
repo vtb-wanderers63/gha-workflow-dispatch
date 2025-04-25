@@ -59,7 +59,7 @@ async function run() {
 
     const run = runs.find(
       (run) =>
-        run.id === workflow_id &&
+        run.workflow_id === workflow_id &&
         run.head_branch === ref &&
         isWorkflowCreatedWithinTimeWindow(workflow_triggered_time, run.created_at)
     );
