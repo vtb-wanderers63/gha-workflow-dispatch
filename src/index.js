@@ -57,12 +57,25 @@ async function run() {
 
     const runs = runs_response.data.workflow_runs;
 
-    const run = runs.find(
-      (run) =>
+    const run = runs.find((run) => {
+      if (
         run.workflow_id === workflow_id &&
         run.head_branch === ref &&
         isWorkflowCreatedWithinTimeWindow(workflow_triggered_time, run.created_at)
-    );
+      ) {
+        return true;
+      } else {
+        core.info(`Workflow run ${run.workflow_id} does not match the criteria.`);
+        core.info(`Workflow branch: ${run.head_branch}`);
+        core.info(
+          `Time difference: ${isWorkflowCreatedWithinTimeWindow(
+            workflow_triggered_time,
+            run.created_at
+          )}`
+        );
+        //pass
+      }
+    });
 
     if (!run) {
       core.setFailed('No workflow run found after dispatch.');
