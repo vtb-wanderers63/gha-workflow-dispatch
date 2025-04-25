@@ -16,7 +16,9 @@ async function run() {
     const repo = process.env.REPO || github.context.repo.repo;
     const workflow_id = process.env.WORKFLOW_ID; // Can be file name or ID
     const ref = process.env.REF || github.context.ref; // branch, tag, or SHA
-    const workflow_run_name = process.env.WORKFLOW_RUN_NAME; // Optional, for better identification
+
+    const workflow_inputs = process.env.WORKFLOW_INPUTS; // Optional, JSON string of inputs
+    const inputs = workflow_inputs ? JSON.parse(workflow_inputs) : {};
 
     // Create Octokit instance
     const octokit = new Octokit({ auth: token });
@@ -28,9 +30,7 @@ async function run() {
       repo,
       workflow_id,
       ref,
-      inputs: {
-        run_name: workflow_run_name,
-      },
+      inputs: inputs,
     });
 
     if (response.status !== 204) {
@@ -53,12 +53,15 @@ async function run() {
       throw new Error(`Failed to get workflow runs. Status: ${runs_response.status}`);
     }
 
+    const workflow_triggered_time = Date.now();
+
     const runs = runs_response.data.workflow_runs;
-    
+
     const run = runs.find(
       (run) =>
-        run.head_branch === ref.replace('refs/heads/', '') &&
-        (!workflow_run_name || run.name === workflow_run_name)
+        run.id === workflow_id &&
+        run.head_branch === ref &&
+        isWorkflowCreatedWithinTimeWindow(workflow_triggered_time, run.created_at)
     );
 
     if (!run) {
@@ -75,5 +78,17 @@ async function run() {
     core.setFailed(error.message);
   }
 }
+
+const isWorkflowCreatedWithinTimeWindow = (
+  workflowTriggeredTime,
+  workflowCreatedTime,
+  timeWindowMs = 30000
+) => {
+  const triggeredTime = new Date(workflowTriggeredTime);
+  const createdTime = new Date(workflowCreatedTime);
+  const timeDifference = Math.abs(createdTime - triggeredTime);
+
+  return timeDifference <= timeWindowMs;
+};
 
 run();

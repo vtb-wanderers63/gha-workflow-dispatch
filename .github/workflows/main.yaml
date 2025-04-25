@@ -22,10 +22,10 @@ on:
         description: 'The git reference to run the workflow on (branch, tag, or SHA)'
         required: false
         default: 'master'
-      workflow_run_name:
-        description: 'Optional name to associate with the workflow run'
+      workflow_inputs:
+        description: 'JSON string of inputs to pass to the triggered workflow'
         required: false
-        default: 'GHA Custom Trigger'
+        default: '{}'
 
 jobs:
   dispatch:
@@ -36,13 +36,13 @@ jobs:
         id: trigger
         uses: vtb-wanderers63/gha-workflow-dispatch@main
         with:
-          workflow_run_name: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.workflow_run_name || 'GHA Custom Trigger' }}
           ref: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.ref || 'master' }}
           workflow_id: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.workflow_id || 155378968 }}
           repo: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.repo || 'gha-python-external-scripts' }}
           owner: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.owner || 'vtb-wanderers63' }}
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.PRIVATE_KEY }}
+          workflow_inputs: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.workflow_inputs || '{}' }}
 
       - name: Print result
         run: |

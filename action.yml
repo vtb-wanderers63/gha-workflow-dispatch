@@ -16,15 +16,16 @@ inputs:
     description: 'The git reference to run the workflow on (branch, tag, or SHA)'
     required: false
     default: ${{ github.ref }}
-  workflow_run_name:
-    description: 'The name of the workflow run for identification (optional)'
-    required: false
   app_id:
     description: 'The github app appId'
     required: true
   private_key:
     description: 'The github app private key'
     required: true
+  workflow_inputs:
+    description: 'JSON string of inputs to pass to the triggered workflow'
+    required: false
+    default: '{}'
 outputs:
   run_id:
     description: 'The ID of the triggered workflow run'
@@ -64,7 +65,7 @@ runs:
         REPO: ${{ inputs.repo }}
         WORKFLOW_ID: ${{ inputs.workflow_id }}
         REF: ${{ inputs.ref }}
-        WORKFLOW_RUN_NAME: ${{ inputs.workflow_run_name }}
+        WORKFLOW_INPUTS: ${{ inputs.workflow_inputs }}
 
 branding:
   icon: 'play'
