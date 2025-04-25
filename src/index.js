@@ -65,6 +65,9 @@ async function run() {
       ) {
         return true;
       } else {
+        core.info(`Original ref:${ref}`)
+        core.info(`Original workflow id:${run.workflow_id}}`)
+
         core.info(`Workflow run ${run.workflow_id} does not match the criteria.`);
         core.info(`Workflow branch: ${run.head_branch}`);
         core.info(
