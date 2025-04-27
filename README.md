@@ -1,6 +1,6 @@
 # Workflow Dispatch Trigger Action
 
-Trigger a `workflow_dispatch` event on another workflow in the same or a different repository and return the triggered workflow's run ID.
+Trigger a `workflow_dispatch` event on another workflow in the same or a different repository and return the triggered workflow's run ID and URL.
 
 This GitHub Action is useful when you need to programmatically trigger another workflow with specific inputs, while authenticating via a GitHub App for secure and scalable automation.
 
@@ -28,6 +28,7 @@ This GitHub Action is useful when you need to programmatically trigger another w
 | Name | Description |
 |:-----|:------------|
 | `run_id` | ID of the triggered workflow run |
+| `run_url` | The URL of the triggered workflow run |
 
 ## Example Usage
 
@@ -59,6 +60,9 @@ jobs:
 
       - name: Echo run ID
         run: echo "Triggered workflow run ID: ${{ steps.trigger.outputs.run_id }}"
+
+      - name: Echo run URL
+        run: echo "Triggered workflow run URL: ${{ steps.trigger.outputs.run_url }}"
 ```
 
 > **Note:**  
@@ -71,7 +75,7 @@ jobs:
 2. **Dispatches the workflow** using the GitHub API.
 3. **Waits** ~30 seconds for the workflow run to register.
 4. **Retrieves the latest workflow run** matching the criteria.
-5. **Outputs the workflow run ID** for downstream jobs.
+5. **Outputs the workflow run ID and URL** for downstream jobs.
 
 ## Requirements
 

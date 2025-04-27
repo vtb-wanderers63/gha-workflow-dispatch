@@ -1,5 +1,5 @@
 name: 'Workflow Dispatch Trigger'
-description: 'Triggers a workflow_dispatch event on another workflow and returns the run ID'
+description: 'Triggers a workflow_dispatch event on another workflow and returns both the run ID, and URL.'
 author: 'vtb-wanderers63'
 
 inputs:
@@ -30,6 +30,9 @@ outputs:
   run_id:
     description: 'The ID of the triggered workflow run'
     value: '${{ steps.workflow-dispatch.outputs.run_id }}'
+  run_url:
+    description: 'The URL of the triggered workflow run'
+    value: '${{ steps.workflow-dispatch.outputs.run_url }}'
 
 runs:
   using: 'composite'
