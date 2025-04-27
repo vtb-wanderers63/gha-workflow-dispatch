@@ -70,11 +70,11 @@ async function run() {
     }
 
     const run_id = run.id;
-    core.info(`Workflow run triggered successfully. Run ID: ${run_id}, Run URL: ${run.url}`);
+    core.info(`Workflow run triggered successfully. Run ID: ${run_id}, Run URL: ${run.html_url}`);
 
     // Set output variable
     core.setOutput('run_id', run_id.toString());
-    core.setOutput('run_url', run.url);
+    core.setOutput('run_url', run.html_url);
   } catch (error) {
     core.setFailed(error.message);
   }
