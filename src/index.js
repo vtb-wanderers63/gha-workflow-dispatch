@@ -14,7 +14,7 @@ async function run() {
     // Get repository name and owner from the inputs or context
     const owner = process.env.OWNER || github.context.repo.owner;
     const repo = process.env.REPO || github.context.repo.repo;
-    const workflow_id = process.env.WORKFLOW_ID; // Can be file name or ID
+    const workflow_id = process.env.WORKFLOW_ID;
     const ref = process.env.REF || github.context.ref; // branch, tag, or SHA
 
     const workflow_inputs = process.env.WORKFLOW_INPUTS; // Optional, JSON string of inputs

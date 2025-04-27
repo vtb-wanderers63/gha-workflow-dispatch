@@ -6,7 +6,7 @@ This GitHub Action is useful when you need to programmatically trigger another w
 
 ## Features
 
-- Supports both the **workflow ID** or **workflow file name**.
+- Uses the **workflow ID**.
 - Authenticates using a **GitHub App** (via `actions/create-github-app-token`).
 - Waits for the triggered workflow to register.
 - Outputs the **workflow run ID** for further actions.
@@ -17,7 +17,7 @@ This GitHub Action is useful when you need to programmatically trigger another w
 |:-----|:------------|:--------:|:-------:|
 | `owner` | Owner of the repository (defaults to current repository owner) | No | Current owner |
 | `repo` | Name of the repository (defaults to current repository) | No | Current repository |
-| `workflow_id` | ID or file name of the workflow to trigger | **Yes** | - |
+| `workflow_id` | ID of the workflow to trigger | **Yes** | - |
 | `ref` | The git reference (branch, tag, or SHA) to run the workflow on | No | `${{ github.ref }}` |
 | `app_id` | GitHub App ID used to generate a token | **Yes** | - |
 | `private_key` | GitHub App private key used to generate a token | **Yes** | - |
@@ -48,7 +48,7 @@ jobs:
         with:
           owner: your-org
           repo: target-repo
-          workflow_id: main.yml # Or the workflow numeric ID
+          workflow_id: workflow id
           ref: main
           app_id: ${{ secrets.GH_APP_ID }}
           private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}

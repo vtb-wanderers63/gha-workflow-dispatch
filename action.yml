@@ -10,7 +10,7 @@ inputs:
     description: 'Repository name where the workflow is located (defaults to current repo)'
     required: false
   workflow_id:
-    description: 'The ID or file name of the workflow to trigger'
+    description: 'The ID of the workflow to trigger'
     required: true
   ref:
     description: 'The git reference to run the workflow on (branch, tag, or SHA)'
